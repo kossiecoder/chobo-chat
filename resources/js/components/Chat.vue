@@ -6,9 +6,16 @@
         />
 
         <div v-if="chatWith" class="w-4/5 flex flex-col">
-            <ChatArea />
+            <ChatArea
+                :chat-id="chatWith"
+            />
             <div class="flex-initial p-2">
-                <input class="border-2 border-solid rounded border-gray-600 w-full p-3" type="text">
+                <input
+                    class="border-2 border-solid rounded border-gray-600 w-full p-3"
+                    type="text"
+                    v-model="text"
+                    @keyup.enter="submit"
+                >
             </div>
         </div>
         <div v-else class="p-3">
@@ -36,7 +43,8 @@
 
         data() {
             return {
-                chatWith: null
+                chatWith: null,
+                text: ''
             }
         },
 
@@ -47,6 +55,16 @@
         methods: {
             updateChatWith(value) {
                 this.chatWith = value;
+            },
+
+            submit() {
+                if (this.text) {
+                    axios.post('/api/messages', {
+                        text: this.text,
+                        to: this.chatWith,
+                        from: this.currentUser
+                    });
+                }
             }
         }
     }
