@@ -1887,6 +1887,15 @@ __webpack_require__.r(__webpack_exports__);
       messages: []
     };
   },
+  created: function created() {
+    var _this = this;
+
+    window.Echo["private"]('chats').listen('MessageSent', function (e) {
+      console.log(e);
+
+      _this.messages.push(e.message);
+    });
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
   },
@@ -1896,7 +1905,7 @@ __webpack_require__.r(__webpack_exports__);
       this.getMessages();
     },
     getMessages: function getMessages() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get('/api/messages', {
         params: {
@@ -1905,11 +1914,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         console.log(res);
-        _this.messages = res.data.messages;
+        _this2.messages = res.data.messages;
       });
     },
     submit: function submit() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.text) {
         axios.post('/api/messages', {
@@ -1917,7 +1926,7 @@ __webpack_require__.r(__webpack_exports__);
           to: this.chatWith,
           from: this.currentUser
         }).then(function (res) {
-          _this2.messages.push(res.data.message);
+          _this3.messages.push(res.data.message);
         });
       }
 
@@ -42341,8 +42350,8 @@ if (token) {
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "",
-  cluster: "mt1",
+  key: "89605eadc1337945717b",
+  cluster: "ap4",
   encrypted: true
 });
 

@@ -50,6 +50,13 @@
             }
         },
 
+        created() {
+            window.Echo.private('chats').listen('MessageSent', e => {
+                console.log(e);
+                this.messages.push(e.message);
+            });
+        },
+
         mounted() {
             console.log('Component mounted.')
         },
