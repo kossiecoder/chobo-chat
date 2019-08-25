@@ -4,6 +4,7 @@
             v-for="user in usersWithoutSignedInUser"
             :key="user.id"
             class="p-2 border-b-2 border-gray-600 hover:bg-gray-300 cursor-pointer"
+            :class="{ 'text-pink-500': chatWith === user.id }"
             @click="updateChatWith(user.id)"
         >
             {{ user.name }}
@@ -17,6 +18,11 @@
             currentUser: {
                 type: Number,
                 required: true
+            },
+
+            chatWith: {
+                type: Number,
+                required: false
             }
         },
 

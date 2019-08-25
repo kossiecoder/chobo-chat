@@ -2,6 +2,7 @@
     <div class="flex h-full">
         <ChatUserList
             :current-user="currentUser"
+            :chat-with="chatWith"
             @updatedChatWith="updateChatWith"
         />
 
@@ -52,8 +53,9 @@
 
         created() {
             window.Echo.private('chats').listen('MessageSent', e => {
-                console.log(e);
-                this.messages.push(e.message);
+                if (e.message.to === this.currentUser && e.message.from === this.chatWith) {
+                    this.messages.push(e.message);
+                }
             });
         },
 
