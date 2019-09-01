@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-1">
+    <div class="flex-1 overflow-y-scroll" v-chat-scroll>
         <ChatMessage
             v-for="message in messages"
             :key="message.id"
